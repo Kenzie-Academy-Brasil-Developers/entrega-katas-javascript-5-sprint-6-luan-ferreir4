@@ -174,23 +174,23 @@ function distinctValues(input) {
 }
 
 //7
-function testEvaluateExpression1() {
+function testCountValues1() {
     let testInput = "1 3 5 3 7 3 1 1 5";
     let output    = countValues(testInput);
     let expected  = "1(3) 3(3) 5(2) 7(1)"
 
     console.assert(output === expected, `Error! Got: ${output}, expected: ${expected}.`);
 }
-testEvaluateExpression1();
+testCountValues1();
 
-function testEvaluateExpression2() {
+function testCountValues2() {
     let testInput = "4 4 4 3 9 3 9 3 3";
     let output    = countValues(testInput);
     let expected  = "3(4) 4(3) 9(2)"
 
     console.assert(output === expected, `Error! Got: ${output}, expected: ${expected}.`);
 }
-testEvaluateExpression2();
+testCountValues2();
 
 function countValues(input) {
     let inputArr = input.split(' ').sort();
@@ -231,7 +231,7 @@ function testEvaluateExpression1() {
 
     console.assert(output === expected, `esperado: ${expected}, obtido: ${output}`)
 }
-// testEvaluateExpression1();
+testEvaluateExpression1();
 
 function testEvaluateExpression2() {
     let output = evaluateExpression("a + b - c + d", {a: 10, b: 85, c: 27, d: 100});
@@ -239,14 +239,23 @@ function testEvaluateExpression2() {
 
     console.assert(output === expected, `esperado: ${expected}, obtido: ${output}`)
 }
-// testEvaluateExpression2();
+testEvaluateExpression2();
 
-// function evaluateExpression(expression, obj) {
-//     let exprArr = expression.split(' ');
-//     console.log(exprArr)
-//     let k = Object.keys(obj)
-//     console.log(k)
-//     let v = Object.values(obj)
-//     console.log(v)
+function evaluateExpression(expression, obj) {
+    let exprArr = expression.split(' ');
 
-// }
+    let total = obj[exprArr[0]];
+
+    for(let i = 0; i < exprArr.length; i+=2){
+
+        if(exprArr[i+1] === '+'){
+            total += obj[exprArr[i+2]];
+        }
+        else if(exprArr[i+1] === '-'){
+            total -= obj[exprArr[i+2]];
+        }
+    }     
+    
+    return total;
+}
+evaluateExpression("a + b - c + d", {a: 10, b: 85, c: 27, d: 100});
